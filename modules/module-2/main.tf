@@ -353,7 +353,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
   iam_instance_profile = aws_iam_instance_profile.ecs-instance-profile.name
   security_groups      = [aws_security_group.ecs_sg.id]
   user_data            = data.template_file.user_data.rendered
-  instance_type        = "t2.micro"
+  instance_type        = "t2.medium"
 }
 resource "aws_autoscaling_group" "ecs_asg" {
   name                 = "ECS-lab-asg"
@@ -362,6 +362,9 @@ resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity     = 1
   min_size             = 0
   max_size             = 1
+  tags = {
+    name = "corp-application"
+  }
 }
 
 resource "aws_ecs_cluster" "cluster" {
