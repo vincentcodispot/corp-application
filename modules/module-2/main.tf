@@ -362,8 +362,10 @@ resource "aws_autoscaling_group" "ecs_asg" {
   desired_capacity     = 1
   min_size             = 0
   max_size             = 1
-  tags = {
-    name = "corp-application"
+  tag {
+    key                 = "name"
+    value               = "corp"
+    propagate_at_launch = true
   }
 }
 
